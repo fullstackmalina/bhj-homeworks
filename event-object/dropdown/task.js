@@ -7,6 +7,13 @@ menu.addEventListener("click", function () {
 })
 
 dropdownMenu.addEventListener("click", function (event) {
-    menu.innerHTML = event.target.innerHTML
-    event.preventDefault();
-})
+    if (event.target.tagName === "LI") {
+        menu.innerHTML = event.target.innerHTML;
+        dropdownMenu.classList.remove("dropdown__list_active");
+        event.preventDefault();
+    }
+});
+
+// set default value for dropdown
+menu.innerHTML = "Select an option";
+
