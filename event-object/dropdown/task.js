@@ -1,19 +1,19 @@
-let menu = document.querySelector(".dropdown__value")
-let dropdownMenu = document.querySelector(".dropdown__list")
-console.log(menu)
+const menu = document.querySelector('.dropdown');
+const list = document.querySelector('.dropdown__list');
+const link = document.querySelectorAll('.dropdown__link');
+const value = document.querySelector('.dropdown__value');
 
-menu.addEventListener("click", function () {
-    dropdownMenu.classList.toggle("dropdown__list_active")
-})
+menu.addEventListener('click', function (event) {
+    let target = event.target;
 
-dropdownMenu.addEventListener("click", function (event) {
-    if (event.target.tagName === "LI") {
-        menu.innerHTML = event.target.innerHTML;
-        dropdownMenu.classList.remove("dropdown__list_active");
-        event.preventDefault();
+    if (target.classList.contains('dropdown__value')) {
+        list.classList.add('dropdown__list_active')
     }
-});
 
-// set default value for dropdown
-menu.innerHTML = "Select an option";
+    if (target.classList.contains('dropdown__link')) {
+        value.textContent = target.textContent;
+        list.classList.remove('dropdown__list_active')
+    }
 
+    event.preventDefault();
+})
