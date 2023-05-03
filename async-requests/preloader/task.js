@@ -33,6 +33,12 @@ function requestHandler() {
 	}
 }
 
+/**
+ * Создает новый элементвалюты
+ * @param charCode - Код валюты
+ * @param value - Значение вылюты
+ * @returns {HTMLDivElement} - элеметн разметки
+ */
 function createElement(charCode, value) {
 	let element = document.createElement("div");
 	element.classList.add("item");

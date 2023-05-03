@@ -1,28 +1,41 @@
-const progress = document.getElementById("progress");
+"use strict";
 
-form.addEventListener("submit", event => {
+const form = document.querySelector("#form");
+const progress = document.querySelector("#progress");
+const url = "https://netology-slow-rest.herokuapp.com/upload.php";
+
+form.addEventListener("submit", submitFormHandler);
+
+
+function submitFormHandler(event) {
     event.preventDefault();
 
-    const form = document.getElementById("form");
-    const formData = new FormData(form);
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://netology-slow-rest.herokuapp.com/upload.php");
+    let xhr = new XMLHttpRequest();
 
-    xhr.upload.onprogress = function (event) {
-        progress.value = event.loaded / event.total;
+    // Событие начала загрузки
+    xhr.upload.onloadstart = function () {
+        console.log("Начало загрузки");
     };
 
-    xhr.addEventListener("readystatechange", (event) => {
-        if (xhr.status === 200) {
-            xhr.abort();
-        }
+    // Событие окончания загрузки
+    xhr.upload.onload = function () {
+        console.log("Загрузка успешно завершена");
+        setTimeout(() => {
+            alert("Загрузка успешно завершена");
+        }, 100);
+    };
+
+    // Событие прогресс загрузки
+    xhr.upload.addEventListener("progress", (event) => {
+        progress.value = event.loaded / event.total;
     });
 
-    // xhr.onload = function() {
-    //   if (xhr.status === 200) {
-    //     xhr.abort();
-    //   }
-    // } 
+    // Событие ошибка загрузки
+    xhr.upload.onerror = function () {
+        console.error("Ошибка загрузки данных!");
+        alert("Ошибка загрузки данных!");
+    };
 
-    xhr.send(formData);
-});
+    xhr.open("POST", url);
+    xhr.send(new FormData(form));
+}
